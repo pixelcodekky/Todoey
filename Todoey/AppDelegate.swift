@@ -18,22 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
-        
-        let data = Data()
-        data.age = 22
-        data.name = "Denial"
+        //print(Realm.Configuration.defaultConfiguration.fileURL)
         
         do{
-            let realm = try Realm()
-            try realm.write {
-                realm.add(data)
-            }
+             try Realm()
         }catch{
            print("Error occur while install new Realm, \(error)")
         }
-        
-        
         return true
     }
 
