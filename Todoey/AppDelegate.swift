@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        //Print out the userDefault persistent data store file
-        //print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+        
+        let data = Data()
+        data.age = 22
+        data.name = "Denial"
+        
+        do{
+            let realm = try Realm()
+            try realm.write {
+                realm.add(data)
+            }
+        }catch{
+           print("Error occur while install new Realm, \(error)")
+        }
+        
+        
         return true
     }
 

@@ -13,6 +13,7 @@
 		49166366215F5E6500D966E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49166365215F5E6500D966E9 /* Assets.xcassets */; };
 		49166369215F5E6500D966E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49166367215F5E6500D966E9 /* LaunchScreen.storyboard */; };
 		498C6AEE2171CF2800967A7F /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C6AED2171CF2800967A7F /* CategoryViewController.swift */; };
+		498C6AF02172918300967A7F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C6AEF2172918300967A7F /* Data.swift */; };
 		49EECF4F216BC1FB00E19DC7 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49EECF4D216BC1FB00E19DC7 /* DataModel.xcdatamodeld */; };
 		9F7B1316ED00BC619D0E49B5 /* Pods_Todoey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A6FB3E5F67F69AF99D2A12 /* Pods_Todoey.framework */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 		49166368215F5E6500D966E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4916636A215F5E6500D966E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		498C6AED2171CF2800967A7F /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		498C6AEF2172918300967A7F /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		49EECF4E216BC1FB00E19DC7 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				49EECF4D216BC1FB00E19DC7 /* DataModel.xcdatamodeld */,
+				498C6AEF2172918300967A7F /* Data.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				498C6AEE2171CF2800967A7F /* CategoryViewController.swift in Sources */,
+				498C6AF02172918300967A7F /* Data.swift in Sources */,
 				49166361215F5E6400D966E9 /* TodoListViewController.swift in Sources */,
 				49EECF4F216BC1FB00E19DC7 /* DataModel.xcdatamodeld in Sources */,
 				4916635F215F5E6400D966E9 /* AppDelegate.swift in Sources */,
