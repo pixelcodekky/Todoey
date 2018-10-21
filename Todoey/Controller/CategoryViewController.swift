@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import CoreData
 import RealmSwift
-import SwipeCellKit
+import ChameleonFramework
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
     
     let realm = try! Realm()
 
@@ -19,9 +18,10 @@ class CategoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadData()
         tableView.rowHeight = 70.00
+        //tableView.separatorStyle = .none
+        
     }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -31,14 +31,19 @@ class CategoryViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Category", style: .default) { (category) in
             let newCat = Category()
             newCat.name = textField.text!
+            //newCat.color = UIColor.randomFlat.hexValue()
+            newCat.color = FlatWhite().hexValue()
             self.save(category: newCat)
         }
-        
+        let actionCancel = UIAlertAction(title: "Cancel", style: .default) { (cancel) in
+            self.dismiss(animated: true, completion: nil)
+        }
         alert.addTextField { (text) in
             text.placeholder = "Add New Category"
             textField = text
         }
         alert.addAction(action)
+        alert.addAction(actionCancel)
         present(alert,animated: true,completion: nil)
         
     }
@@ -49,19 +54,19 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! SwipeTableViewCell
-        cell.delegate  = self
-        cell.textLabel?.text = categoryarray?[indexPath.row].name ?? "No Category"
+        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        
+        if let category = categoryarray?[indexPath.row]{
+            cell.textLabel?.text = category.name
+            //cell.backgroundColor = UIColor.randomFlat
+            cell.backgroundColor = UIColor(hexString: category.color )
+            cell.textLabel?.textColor = ContrastColorOf(UIColor(hexString: category.color)!, returnFlat: true)
+        }
         
         return cell
     }
-    
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! SwipeTableViewCell
-//        cell.delegate = self
-//        return cell
-//    }
-    
+ 
     //MARK: - table View Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)
@@ -89,44 +94,58 @@ class CategoryViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func edit(index : IndexPath,name : UITextField){
+        if let item = categoryarray?[index.row]{
+            do{
+                try realm.write {
+                    item.name = name.text!;
+                }
+            }catch{
+                print("Error occur while updating \(error )")
+            }
+        }
+        tableView.reloadData()
+    }
+    
     func loadData(){
         categoryarray = realm.objects(Category.self)
         tableView.reloadData()
         
     }
-}
-
-//MARK - Swipt cell delegate method
-
-extension CategoryViewController : SwipeTableViewCellDelegate{
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-        
-        let deleteAction = SwipeAction(style: .destructive,title: "Delete") { action, indexPath in
-            // handle action by updating model with deletion
-            //print("\(self.categoryarray?[indexPath.row].name) has been deleted.")
-            if let deletecategory = self.categoryarray?[indexPath.row]{
-                do{
-                    try self.realm.write {
-                        self.realm.delete(deletecategory)
-                    }
-                }catch{
-                    print("Error occur while delete")
+    //MARK - Delete Data call function from delegate class
+    override func updateModel(at indexPath: IndexPath) {
+        if let deletecategory = self.categoryarray?[indexPath.row]{
+            do{
+                try self.realm.write {
+                    self.realm.delete(deletecategory)
                 }
+            }catch{
+                print("Error occur while delete")
             }
         }
-        
-        // customize the action appearance
-        //deleteAction.image = UIImage(named: "Trash-Icon")
-        
-        return [deleteAction]
     }
     
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        var options = SwipeOptions()
-        options.expansionStyle = .destructive
-        return options
+    //MARK - Edit Data cell function from delegate class
+    override func editModel(at indexPath: IndexPath) {
+        //call UIAlertController
+        var textField = UITextField()
+        if let editcategory = self.categoryarray?[indexPath.row]{
+            let alert = UIAlertController(title: "Edit \(editcategory.name)", message: "", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Edit Category", style: .default) { (edit) in
+                self.edit(index: indexPath ,name : textField)
+            }
+            let actionCancel = UIAlertAction(title: "Cancel", style: .default) { (cancel) in
+                self.dismiss(animated: true, completion: nil)
+            }
+            alert.addTextField { (text) in
+                text.text = editcategory.name
+                textField = text
+            }
+            alert.addAction(action)
+            alert.addAction(actionCancel)
+            present(alert,animated: true,completion: nil)
+        }
     }
     
 }
