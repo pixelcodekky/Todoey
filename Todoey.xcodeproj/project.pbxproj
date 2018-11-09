@@ -16,7 +16,7 @@
 		498C6AF22173147F00967A7F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C6AF12173147F00967A7F /* Item.swift */; };
 		498C6AF42173149600967A7F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C6AF32173149600967A7F /* Category.swift */; };
 		498C6AF62174DBA200967A7F /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C6AF52174DBA200967A7F /* SwipeTableViewController.swift */; };
-		9F7B1316ED00BC619D0E49B5 /* Pods_Todoey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A6FB3E5F67F69AF99D2A12 /* Pods_Todoey.framework */; };
+		9F7B1316ED00BC619D0E49B5 /* Pods_Todoey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A6FB3E5F67F69AF99D2A12 /* Pods_Todoey.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -420,7 +420,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pixelsoft.Todoey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -439,7 +439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pixelsoft.Todoey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

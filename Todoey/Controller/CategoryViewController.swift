@@ -98,7 +98,7 @@ class CategoryViewController: SwipeTableViewController {
         if let item = categoryarray?[index.row]{
             do{
                 try realm.write {
-                    item.name = name.text!;
+                    item.name = name.text!
                 }
             }catch{
                 print("Error occur while updating \(error )")

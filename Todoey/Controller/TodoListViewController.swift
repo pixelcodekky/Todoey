@@ -69,7 +69,6 @@ class TodoListViewController: SwipeTableViewController {
                 cell.backgroundColor = color
                 cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
             }
-            
         }else{
             cell.textLabel?.text = "No Items Added"
         }
@@ -98,8 +97,8 @@ class TodoListViewController: SwipeTableViewController {
     //MARK: - Add new Item
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
-        
-        let alert = UIAlertController(title: "Create new Todoey Item", message: "", preferredStyle: .alert)
+        let title = "Create new " + (selectCategory?.name)! + " Item"
+        let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //what will happen when click add item button upon on this
@@ -129,6 +128,20 @@ class TodoListViewController: SwipeTableViewController {
         self.tableView.reloadData()
     }
     
+    //edit Data
+    func edit(index : IndexPath,name : UITextField){
+        if let item = todoItems?[index.row]{
+            do{
+                try realm.write {
+                    item.title = name.text!
+                }
+            }catch{
+                print("\(error)")
+            }
+            tableView.reloadData()
+        }
+    }
+    
     func loadData(){
         todoItems = selectCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
@@ -143,6 +156,27 @@ class TodoListViewController: SwipeTableViewController {
             }catch{
                 print("Error Occru while deleting \(error)")
             }
+        }
+    }
+    
+    override func editModel(at indexPath: IndexPath) {
+        var textFiled = UITextField()
+        if let items = todoItems?[indexPath.row]{
+            let alert = UIAlertController(title: "Edit \(items.title)", message: nil, preferredStyle: .alert)
+            alert.addTextField{ (text) in
+                text.text = items.title
+                textFiled = text
+            }
+            let editaction = UIAlertAction(title: "Edit", style: .default) { (edit) in
+                self.edit(index: indexPath, name: textFiled)
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .default) { (cancel) in
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            alert.addAction(editaction)
+            alert.addAction(cancel)
+            present(alert,animated: true,completion: nil)
             
         }
     }
