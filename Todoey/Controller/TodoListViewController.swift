@@ -45,8 +45,8 @@ class TodoListViewController: SwipeTableViewController {
         guard let  validNavbar = navigationController?.navigationBar else {fatalError("Navigation doesn't exists.")}
         guard let navColor = UIColor(hexString: hexColor) else{fatalError("")}
         validNavbar.tintColor = ContrastColorOf(navColor, returnFlat: true)
-        validNavbar.barTintColor = navColor
-        searchBar.barTintColor = navColor
+        //validNavbar.barTintColor = navColor
+        //searchBar.barTintColor = navColor
         validNavbar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navColor, returnFlat: true)]
         
     }
@@ -65,10 +65,10 @@ class TodoListViewController: SwipeTableViewController {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
             
-            if let color = UIColor(hexString: selectCategory!.color)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)){
-                cell.backgroundColor = color
-                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
-            }
+//            if let color = UIColor(hexString: selectCategory!.color)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)){
+//                cell.backgroundColor = color
+//                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+//            }
         }else{
             cell.textLabel?.text = "No Items Added"
         }
