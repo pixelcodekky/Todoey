@@ -28,6 +28,7 @@ class TodoListViewController: SwipeTableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         //tableView.separatorStyle = .none
+        //self.tableView.isEditing = true
      }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +94,7 @@ class TodoListViewController: SwipeTableViewController {
 //        saveData()
 //        tableView.deselectRow(at: indexPath, animated: true)
     }
+    
     
     //MARK: - Add new Item
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
